@@ -23,7 +23,6 @@ contract Documents is Ownable, Collaborator {
     }
     
     modifier onlyAuthorizer() {
-        require()
         _;
     }
 }

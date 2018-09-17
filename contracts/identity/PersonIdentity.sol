@@ -64,7 +64,7 @@ contract PersonIdentity is TermsAndCondition {
     * @param _uPort idPort
     * @param _approveOrDisapprove true or false
     */    
-    function validate(string _uPort, bool _approveOrDisapprove) external onlyCollaborator(msg.sender) {
+    function validate(string _uPort, bool _approveOrDisapprove) public {
         require(_uPort.stringToBytes32() != 0x0, "Necessary _uPort");
         bytes32 hashUportByte32 = _uPort.stringToBytes32();
         require(mapPerson[hashUportByte32].sender != 0x0, "Necessary valid _uPort");
