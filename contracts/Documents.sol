@@ -3,70 +3,59 @@ pragma solidity ^0.4.24;
 import "./zeppelin/ownership/Ownable.sol";
 
 contract AcademicDocument is Ownable {
-    mapping(address => Document) public _documents;
-    mapping(address => Authorizer) public _authorizers;
-    mapping(address => Student) public _student;
-    mapping(address => University) public _university;
+    mapping(address => Student) _student;
+    mapping(address => University) _university;
+    mapping(address => Document) _document;
     
-    struct Authorizer {
-        address _address;
+    struct University {
         string name;
+        uint registrationId;
     }
-
+    
     struct Student {
-        address _studentAddress;
         string name;
-        string registrationId;
-        address university;
+        uint registrationId;
     }
     
     struct Document {
         string hash;
         string documentType;
         uint entryDate;
+        mapping(address => University) u;
+        mapping(address => Student) s;
     }
     
-    struct University {
-        address _universityAddress;
-        string name;
+    function addUniversity(address universityAddress, string name, uint registrationId) public onlyOwner {
+        University memory university;
+        university.name = name;
+        university.registrationId = registrationId;
+        
+        _university[universityAddress] = university;
     }
     
-    function addDocument(address _address, string hash) public onlyAuthorizer {
+    function getUniversity(address universityAddress) constant public returns(string, uint) {
+        return(_university[universityAddress].name, _university[universityAddress].registrationId);
+    }
+    
+    function addStudent(address studentAddress, string name, uint registrationId) public onlyOwner{
+        Student memory student;
+        student.name = name;
+        student.registrationId = registrationId;
+        
+        _student[studentAddress] = student;
+    }
+    
+    function getStudent(address studentAddress) constant public returns(string, uint) {
+        return(_student[studentAddress].name, _student[studentAddress].registrationId);
+    }
+    
+    function addDocument(address _address, string hash, string name, string documentType, uint entryDate) public onlyOwner {
         Document memory document;
         
         document.hash = hash;
+        document.documentType = documentType;
         document.entryDate = now;
         
-        _documents[_address] = document;
+        _document[_address] = document;
     }
-    
-    function addUniversity(address _address, string name) public onlyAuthorizer {
-        University memory university;
-        
-        university.name = name;
-        _university[_address] = university;
-    }
-    
-    function addStudent(address _address, address university,  string name, string registrationId) public onlyAuthorizer {
-        Student memory student;
-        
-        student.name = name;
-        student.registrationId = registrationId;
-        student.university = university;
-        _student[_address] = student;
-    }
-    
-    function addAuthorizer(address _address, string name) public onlyOwner {
-        
-    }
-    
-    modifier onlyAuthorizer() {
-        require(_authorizers[msg.sender]._address != 0x0);
-        _;
-    }   
-    
-    // modifier onlyOwner() {
-    //     require(msg.sender == )
-    // }
 }
-
