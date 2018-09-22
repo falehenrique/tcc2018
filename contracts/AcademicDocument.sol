@@ -20,6 +20,7 @@ contract AcademicDocument is Ownable, Student, University {
     function addDocument(string documentType, string hash, uint university, uint student) public onlyOwner {
         Document memory document;
         
+        document.documentId = _documentId;
         document.hash = hash;
         document.documentType = documentType;
         document.entryDate = now;
