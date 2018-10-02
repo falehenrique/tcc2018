@@ -7,7 +7,7 @@ contract University is Ownable {
     mapping(uint => UniversityData) _university;
     uint _universityId = 1;
     
-    event AddNewUniversity(string name, uint registrationId);
+    event AddNewUniversity(string name, uint registrationId, uint _universityId);
 
     struct UniversityData {
         string name;
@@ -25,7 +25,7 @@ contract University is Ownable {
         _university[_universityId] = universityData;
         _universityId++;
 
-        emit AddNewUniversity(name, registrationId);
+        emit AddNewUniversity(name, registrationId, _universityId);
     }
     
     function getUniversity(uint id) public view returns(string, uint) {

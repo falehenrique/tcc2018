@@ -8,7 +8,7 @@ contract AcademicDocument is Ownable, Student, University {
     mapping(uint => Document) _document;
     uint _documentId = 1;
 
-    event AddNewDocument(string documentType, string hash, uint university, uint student); 
+    event AddNewDocument(string documentType, string hash, uint university, uint student, uint _documentId); 
 
     struct Document {
         uint documentId;
@@ -32,7 +32,7 @@ contract AcademicDocument is Ownable, Student, University {
         _document[_documentId] = document;
         _documentId++;
 
-        emit AddNewDocument(documentType, hash, university, student);
+        emit AddNewDocument(documentType, hash, university, student, _documentId);
     }
  
     function getDocumentt(uint documentId) public view returns(string, uint, string, string) {

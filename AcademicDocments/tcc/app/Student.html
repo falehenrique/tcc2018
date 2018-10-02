@@ -1,0 +1,112 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro Acadêmico</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <li>
+                        <a class="nav-link" href="Student.html">Cadastro de Estudante</a>
+                    </li>
+                </li>
+                <li class="nav-item">
+                    <li>
+                        <a class="nav-link" href="University.html">Cadastro de Universidade</a>
+                    </li>
+                </li>
+
+                <li class="nav-item">
+                    <li>
+                        <a class="nav-link" href="RegistroAcademico.html">Cadastro de Registro Acadêmico</a>
+                    </li>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <h3>
+            <p>Consulta de Estudante</p>
+        </h3>
+        <br>
+
+        <div class="card">
+            <h5 class="card-header">Consultar</h5>
+
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="enderecoContratoEstudante" placeholder="Endereço Contrato">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnConsultarEstudante">Consultar</button>
+                </div>
+
+                <div class="form-group row">
+                    <label for="matricula" class="col-sm-2 col-form-label">Matrícula do Estudante</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="registrationId" value="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nome" class="col-sm-2 col-form-label">Nome do Estudante</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="nome" value="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+        <div class="card">
+            <h5 class="card-header">Cadastro de Estudante</h5>
+            <div class="card-body">
+                <!-- <div class="form-group"> -->
+                    <div class="col-4 form-group">
+                        <input type="text" class="form-control" id="enderecoContratoEstudante" placeholder="Endereço Contrato">
+                    </div>
+                    <div class="col-4 form-group">
+                        <input type="text" class="form-control" id="registrationId" placeholder="Matrícula">
+                    </div>
+                    <div class="col-4 form-group">
+                        <input type="text" class="form-control" id="name" placeholder="Nome">
+                    </div>
+                    <div class="col-4 form-group">
+                        <button type="button" class="btn btn-danger" id="btnCadastrarEstudante">Cadastrar</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-12">
+                        <input type="text" readonly class="form-control-plaintext" id="cadastrar" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <!-- web3 -->
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <!--bootstrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!--js-->
+    <script src="scripts/main.js"></script>
+    <script src="scripts/student.js"></script>
+</body>
+
+</html>

@@ -6,8 +6,8 @@
 
 //load
 window.addEventListener('load', function() {
-    var urlNode = 'http://127.0.0.1:7545';
-    // var urlNode = 'http://localhost:8545';
+    // var urlNode = 'http://127.0.0.1:7545';
+    var urlNode = 'http://localhost:8545';
     window.web3 = new Web3(new Web3.providers.HttpProvider(urlNode));
     // conect with metamask
     // window.web3 = new Web3(web3.currentProvider)
