@@ -1,13 +1,13 @@
-pragma solidity ^0.4.24;
+pragma solidity 0.4.24;
 
-import "./zeppelin/ownership/Ownable.sol";
+import "../sol/zeppelin/ownership/Ownable.sol";
 
 contract Student is Ownable {
     
     mapping(uint => StudentData) _student;
     uint _studentId = 1;
     
-    event AddNewStudent(uint registrationId, string name, uint _studentId);
+    event AddNewStudent(uint registrationId, string name);
 
     struct StudentData {
         uint registrationId;  
@@ -25,7 +25,7 @@ contract Student is Ownable {
         _student[_studentId] = student;
         _studentId++;
 
-        emit AddNewStudent(registrationId, name, _studentId);
+        emit AddNewStudent(registrationId, name);
     }
     
     function getStudent(uint studentId) public view returns(string, uint) {
