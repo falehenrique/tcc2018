@@ -7,15 +7,15 @@ contract Student is Ownable {
     mapping(uint => StudentData) _student;
     uint _studentId = 1;
     
-    event AddNewStudent(uint registrationId, string name);
+    event AddNewStudent(uint registrationId, bytes32 name);
 
     struct StudentData {
         uint registrationId;  
-        string name;   
+        bytes32 name;   
         uint studentId;
     }
     
-    function addStudent(uint registrationId, string name) public onlyOwner{
+    function addStudent(uint registrationId, bytes32 name) public onlyOwner{
         StudentData memory student;
 
         student.studentId = _studentId;
@@ -28,7 +28,7 @@ contract Student is Ownable {
         emit AddNewStudent(registrationId, name);
     }
     
-    function getStudent(uint studentId) public view returns(string, uint) {
+    function getStudent(uint studentId) public view returns(bytes32, uint) {
         return(_student[studentId].name, _student[studentId].registrationId);
     }
 }
