@@ -106,13 +106,25 @@ $( "#btnCadastrarEstudante" ).click(function() {
 
     studentInstance.addStudent(matricula, web3.toHex(nome), function(error, result){
         if (!error) {
-        console.info(result);
+        	console.info(result);
         } else {
             console.error(error);
         }
     });
     // startEvent(studentInstance);
 });
+
+$("#btnConsultarEstudante" ).click(function() {
+	let studentInstance = getInstanceStudent();
+	studentInstance.getStudent(1, function(error, result){
+		if (!error) {
+			console.log(result);
+		} else {
+			console.error(error);
+		}
+	})
+});
+
 
 //event.stopWatching();
 function startEvent(studentInstance) {
