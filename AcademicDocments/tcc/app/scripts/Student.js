@@ -111,26 +111,19 @@ $( "#btnCadastrarEstudante" ).click(function() {
             console.error(error);
         }
     });
-    // startEvent(studentInstance);
 });
 
+/**
+ * Get Student
+ */
 $("#btnConsultarEstudante" ).click(function() {
 	let studentInstance = getInstanceStudent();
 	studentInstance.getStudent(1, function(error, result){
 		if (!error) {
-			console.log(result);
+			$("#consulta_nome_estudante").val(web3.toAscii(result[0]));
+			$("#consulta_matricula_estudante").val(result[1].c[0]);
 		} else {
 			console.error(error);
 		}
 	})
 });
-
-
-//event.stopWatching();
-function startEvent(studentInstance) {
-    let evento = studentInstance.AddNewStudent();
-    evento.watch(function(error, result){
-        console.info(result);
-        $("#name").val("Estudante cadastrado com sucesso: " + result.args.registrationId);
-    });
-}
