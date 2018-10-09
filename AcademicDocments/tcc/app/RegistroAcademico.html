@@ -39,7 +39,7 @@
         </div>
         <br>
         <h3>
-            <p>ConsultA de Documento</p>
+            <p>Consulta de Documento</p>
         </h3>
         <br>
 
@@ -49,7 +49,7 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="col-4">
-                        <input type="text" class="form-control" id="enderecoContratoDocumento" placeholder="Endereço Contrato">
+                        <input type="text" class="form-control" id="consulta_enderecoContratoDocumento" placeholder="Endereço Contrato">
                     </div>
                     <button type="button" class="btn btn-primary" id="btnConsultarDocumento">Consultar</button>
                 </div>
@@ -57,20 +57,20 @@
                 <div class="form-group row">
                     <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo do Documento</label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="tipo_documento" value="">
+                        <input type="text" readonly class="form-control-plaintext" id="consulta_tipo_documento" value="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="nome_universidade" class="col-sm-2 col-form-label">Universidade</label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="nome_universidade" value="">
+                        <input type="text" readonly class="form-control-plaintext" id="consulta_universidade_id" value="">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="nome_estudante" class="col-sm-2 col-form-label">Estudante</label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="nome_estudante" value="">
+                        <input type="text" readonly class="form-control-plaintext" id="consulta_estudante_id" value="">
                     </div>
                 </div>
 
@@ -86,16 +86,24 @@
                         <input type="text" class="form-control" id="enderecoContratoDocumento" placeholder="Endereço Contrato">
                     </div>
                     <div class="col-4 form-group">
-                        <input type="text" class="form-control" id="documentType" placeholder="Tipo de Documento">
+                        <input type="text" class="form-control" id="tipo_documento" placeholder="Tipo de Documento">
                     </div>
                     <div class="col-4 form-group">
-                        <input type="text" class="form-control" id="universidadeId" placeholder="Id Universidade">
+                        <input type="text" class="form-control" id="universidade_id" placeholder="Id Universidade">
                     </div>
                     <div class="col-4 form-group">
-                        <input type="text" class="form-control" id="estudanteId" placeholder="Id Estudante">
+                        <input type="text" class="form-control" id="estudante_id" placeholder="Id Estudante">
                     </div>
+
                     <div class="col-4 form-group">
-                        <button type="button" class="btn btn-danger" id="btnCadastrarDocumento">Cadastrar</button>
+                        <label for="documento">Selecione um documento</label>
+                        <input type="file" class="form-control" name="documento" id="documento" placeholder="Selecione um arquivo">
+                    </div>
+
+
+                    <div class="col-4 form-group">
+                        <!-- <button type="button" class="btn btn-danger" id="btnCadastrarDocumento">Cadastrar</button> -->
+                        <button type="button" class="btn btn-danger" id="btnCadastrarDocumento" onclick="upload()">Cadastrar</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -116,7 +124,7 @@
         crossorigin="anonymous"></script>
     <!--js-->
     <script src="scripts/main.js"></script>
-    <script src="scripts/student.js"></script>
+    <script src="scripts/AcademicDocument.js"></script>
 </body>
 
 </html>

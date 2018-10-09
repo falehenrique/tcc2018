@@ -10,14 +10,14 @@ contract AcademicDocument is Ownable, Student, University {
 
     struct Document {
         uint documentId;
-        string hash;
-        string documentType;
+        bytes32 hash;
+        bytes32 documentType;
         uint entryDate;
         uint universityId;
         uint studentId;
     }
 
-    function addDocument(string documentType, string hash, uint university, uint student) public onlyOwner {
+    function addDocument(bytes32 documentType, bytes32 hash, uint university, uint student) public onlyOwner {
         Document memory document;
         
         document.hash = hash;
@@ -30,8 +30,8 @@ contract AcademicDocument is Ownable, Student, University {
         _documentId++;
     }
  
-    function getDocument(uint documentId) public view returns(string, uint, string, bytes32) {
-        return(
+    function getDocument(uint documentId) public view returns(bytes32, uint, bytes32, bytes32) {
+        return (
             _document[documentId].documentType, 
             _document[documentId].entryDate,  
             _university[_document[documentId].universityId].name,  
