@@ -1,5 +1,31 @@
 let abi_document = [
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "documentType",
+				"type": "bytes32"
+			},
+			{
+				"name": "hash",
+				"type": "bytes32"
+			},
+			{
+				"name": "university",
+				"type": "uint256"
+			},
+			{
+				"name": "student",
+				"type": "uint256"
+			}
+		],
+		"name": "addDocument",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -84,28 +110,6 @@ let abi_document = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "documentType",
-				"type": "bytes32"
-			},
-			{
-				"name": "university",
-				"type": "uint256"
-			},
-			{
-				"name": "student",
-				"type": "uint256"
-			}
-		],
-		"name": "addDocument",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -212,20 +216,7 @@ function getInstanceDocument() {
  * Add Document
  */
 $( "#btnCadastrarDocumento" ).click(function() {
-    let documentInstance = getInstanceDocument();
-    let documentType = $("#tipo_documento").val();
-    let universityId = $("#universidade_id").val();
-    let studentId = $("#estudante_id").val();
-    let tx = {
-        gas: 470000
-    }
-    documentInstance.addDocument(web3.toHex(documentType), universityId, studentId, tx, function(error, result){
-        if (!error) {
-        	console.info(result);
-        } else {
-            console.error(error);
-        }
-    });
+	upload();
 });
 
 /**
@@ -233,7 +224,7 @@ $( "#btnCadastrarDocumento" ).click(function() {
  */
 $("#btnConsultarDocumento" ).click(function() {
 	let documentInstance = getInstanceDocument();
-	documentInstance.getDocument(2, function(error, result){
+	documentInstance.getDocument(1, function(error, result){
 		if (!error) {
 			$("#consulta_tipo_documento").val(web3.toAscii(result[0]));
             $("#consulta_universidade_id").val(web3.toAscii(result[1]));
@@ -244,66 +235,73 @@ $("#btnConsultarDocumento" ).click(function() {
 	})
 });
 
+function upload() {
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      const ipfs = window.IpfsApi('localhost', 5001, {
+        protocol: 'http'
+      }) // Connect to IPFS using Infura
+      const buf = buffer.Buffer(reader.result) // Convert data into buffer
+      ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
+        if (err) {
+          console.error(err)
+          return
+        }
+        let url = 'http://localhost:5001/ipfs/' + result[0].hash //pic url
+        let ERC721Metadata = JSON.stringify({
+          "doument_type": $("#tipo_documento").val(),
+          "universit_id": $("#universidade_id").val(),
+          "student_id": $("#estudante_id").val(),
+          "document": url,
+        })
+        const jsonBuffer = buffer.Buffer(ERC721Metadata)
+        ipfs.add(jsonBuffer, (err, result) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          mint('http://localhost:5001/ipfs/' + result[0].hash)
+        });
+      })
+    }
+    const doc = document.getElementById("documento");
+    reader.readAsArrayBuffer(doc.files[0]); // Read Provided File
+  }
+  
+  function mint(Uri) {
+    console.log(ipfsUri)
+  
+    var myAddress = web3.eth.coinbase
+  
+    if (!myAddress) {
+      alert("Please use a browser compatible with Ethereum");
+      return;
+    }
+  
+    var transactionObject = {
+      from: myAddress,
+      gas: 900000,
+      gasPrice: 3000000000
+    };
+  
+    // var hash = web3.sha3(document.getElementById("password").value)
+    // var qtty = document.getElementById("quantity").value
+  
+	let documentInstance = getInstanceDocument();
+    let documentType = $("#tipo_documento").val();
+    let universityId = $("#universidade_id").val();
+	let studentId = $("#estudante_id").val();
 
+	documentInstance.addDocument(web3.toHex(documentType), ipfsUri, universityId, studentId, transactionObject, function(error, result){
+        if (!error) {
+        	console.info(result);
+        } else {
+            console.error(error);
+        }
+    });
 
-
-
-
-
-// function upload() {
-//     const reader = new FileReader();
-//     reader.onloadend = function () {
-//       const ipfs = window.IpfsApi('localhost', 5001, {
-//         protocol: 'http'
-//       }) // Connect to IPFS using Infura
-//       const buf = buffer.Buffer(reader.result) // Convert data into buffer
-//       ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
-//         if (err) {
-//           console.error(err)
-//           return
-//         }
-//         let url = 'http://localhost:5001/ipfs/' + result[0].hash //pic url
-//         let ERC721Metadata = JSON.stringify({
-//           "doument_type": $("#tipo_documento").val(),
-//           "universit_id": $("#universidade_id").val(),
-//           "student_id": $("#estudante_id").val(),
-//           "document": url,
-//         })
-//         const jsonBuffer = buffer.Buffer(ERC721Metadata)
-//         ipfs.add(jsonBuffer, (err, result) => {
-//           if (err) {
-//             console.error(err)
-//             return
-//           }
-//           mint('http://localhost:5001/ipfs/' + result[0].hash)
-//         });
-//       })
-//     }
-//     // const photo = document.getElementById("photo");
-//     // reader.readAsArrayBuffer(photo.files[0]); // Read Provided File
-//   }
+    // NFTStoreContract.addCollectible.sendTransaction(hash, ipfsUri, qtty, transactionObject, (error, transaction) => {
+    //   console.log(transaction)
+    // })
   
-//   function mint(Uri) {
-//     console.log(ipfsUri)
-  
-//     var myAddress = web3.eth.coinbase
-  
-//     if (!myAddress) {
-//       alert("Please use a browser compatible with Ethereum");
-//       return;
-//     }
-  
-//     var transactionObject = {
-//       from: myAddress,
-//       gas: 900000,
-//       gasPrice: 3000000000
-//     };
-  
-//     var hash = web3.sha3(document.getElementById("password").value)
-//     var qtty = document.getElementById("quantity").value
-  
-//     NFTStoreContract.addCollectible.sendTransaction(hash, ipfsUri, qtty, transactionObject, (error, transaction) => {
-//       console.log(transaction)
-//     })
-  
-//   }
+  }

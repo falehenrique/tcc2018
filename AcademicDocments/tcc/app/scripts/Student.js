@@ -104,7 +104,11 @@ $( "#btnCadastrarEstudante" ).click(function() {
     let matricula = $("#matricula_estudante").val();
     let nome = $("#nome_estudante").val();
 
-    studentInstance.addStudent(matricula, web3.toHex(nome), function(error, result){
+	let tx = {
+        gas: 470000
+	}
+	
+    studentInstance.addStudent(matricula, web3.toHex(nome), tx, function(error, result){
         if (!error) {
         	console.info(result);
         } else {
