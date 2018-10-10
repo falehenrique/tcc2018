@@ -34,14 +34,14 @@ $( "#btnConsultarPessoa" ).click(function() {
 $( "#btnAlterarEmail" ).click(function() {
     let personInstance = getInstancePerson();
     let emailNovo = $('#emailNovo').val();
-    // let enderecoConta = $('#enderecoConta').val();
+    let enderecoConta = $('#enderecoConta').val();
 
-    // var tx = {
-    //     from: enderecoConta,
-    //     gas: 470000
-    // }
+    var tx = {
+        from: enderecoConta,
+        gas: 470000
+    }
 
-    personInstance.changeEmail.sendTransaction(emailNovo, function(error, result){
+    personInstance.changeEmail.sendTransaction(emailNovo, tx, function(error, result){
         console.info(result);
     });
 

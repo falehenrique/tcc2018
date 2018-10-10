@@ -109,7 +109,11 @@ $( "#btnCadastrarUniversidade" ).click(function() {
     let matricula = $("#matricula_universidade").val();
     let nome = $("#nome_universidade").val();
 
-    universityInstance.addUniversity(web3.toHex(nome), matricula, function(error, result){
+    let tx = {
+        gas: 470000
+    }
+
+    universityInstance.addUniversity(web3.toHex(nome), matricula,tx , function(error, result){
         if (!error) {
         	console.info(result);
         } else {
