@@ -238,9 +238,7 @@ $("#btnConsultarDocumento" ).click(function() {
 function upload() {
     const reader = new FileReader();
     reader.onloadend = function () {
-      const ipfs = window.IpfsApi('localhost', 5001, {
-        protocol: 'http'
-      }) // Connect to IPFS using Infura
+      const ipfs = window.IpfsApi('localhost', 5001, { protocol: 'http'}) // Connect to IPFS using Infura
       const buf = buffer.Buffer(reader.result) // Convert data into buffer
       ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
         if (err) {
