@@ -8,7 +8,7 @@ let abi_document = [
 			},
 			{
 				"name": "hash",
-				"type": "bytes32"
+				"type": "string"
 			},
 			{
 				"name": "university",
@@ -24,6 +24,98 @@ let abi_document = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "name",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"name": "registrationId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_universityId",
+				"type": "uint256"
+			}
+		],
+		"name": "AddNewUniversity",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "registrationId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "name",
+				"type": "bytes32"
+			}
+		],
+		"name": "AddNewStudent",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "registrationId",
+				"type": "uint256"
+			},
+			{
+				"name": "name",
+				"type": "bytes32"
+			}
+		],
+		"name": "addStudent",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "name",
+				"type": "bytes32"
+			},
+			{
+				"name": "registrationId",
+				"type": "uint256"
+			}
+		],
+		"name": "addUniversity",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
 	},
 	{
 		"constant": true,
@@ -77,20 +169,6 @@ let abi_document = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
 				"name": "id",
@@ -113,96 +191,18 @@ let abi_document = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
 			{
-				"name": "registrationId",
-				"type": "uint256"
-			},
-			{
-				"name": "name",
-				"type": "bytes32"
-			}
-		],
-		"name": "addStudent",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "name",
-				"type": "bytes32"
-			},
-			{
-				"name": "registrationId",
-				"type": "uint256"
-			}
-		],
-		"name": "addUniversity",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "name",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"name": "registrationId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "_universityId",
-				"type": "uint256"
-			}
-		],
-		"name": "AddNewUniversity",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "registrationId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "name",
-				"type": "bytes32"
-			}
-		],
-		"name": "AddNewStudent",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "newOwner",
+				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "OwnershipTransferred",
-		"type": "event"
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 
@@ -258,7 +258,7 @@ function upload() {
             console.error(err)
             return
           }
-          mint('http://localhost:5001/ipfs/' + result[0].hash)
+          mint('http://localhost:5001/ipfs/' + result[0].hash, result[0].hash)
         });
       })
     }
@@ -266,7 +266,7 @@ function upload() {
     reader.readAsArrayBuffer(doc.files[0]); // Read Provided File
   }
   
-  function mint(Uri) {
+  function mint(ipfsUri, hash) {
     console.log(ipfsUri)
   
     var myAddress = web3.eth.coinbase
@@ -276,30 +276,23 @@ function upload() {
       return;
     }
   
-    var transactionObject = {
-      from: myAddress,
-      gas: 900000,
-      gasPrice: 3000000000
-    };
-  
-    // var hash = web3.sha3(document.getElementById("password").value)
-    // var qtty = document.getElementById("quantity").value
+    let tx = {
+        gas: 900000
+	}
   
 	let documentInstance = getInstanceDocument();
     let documentType = $("#tipo_documento").val();
     let universityId = $("#universidade_id").val();
 	let studentId = $("#estudante_id").val();
+    
+    console.log(web3.toHex(documentType));
+    console.log(web3.toHex(hash));
 
-	documentInstance.addDocument(web3.toHex(documentType), ipfsUri, universityId, studentId, transactionObject, function(error, result){
+	documentInstance.addDocument(web3.toHex(documentType), hash, universityId, studentId, tx, function(error, result){
         if (!error) {
         	console.info(result);
         } else {
             console.error(error);
         }
     });
-
-    // NFTStoreContract.addCollectible.sendTransaction(hash, ipfsUri, qtty, transactionObject, (error, transaction) => {
-    //   console.log(transaction)
-    // })
-  
   }
