@@ -239,37 +239,24 @@ $( "#btnCadastrarDocumento" ).click(function() {
 	upload();
 });
 
-
 function upload() {
-    const reader = new FileReader();
-    reader.onloadend = function () {
-      const ipfs = window.IpfsApi('localhost', 5001, { protocol: 'http'})
-      const buf = buffer.Buffer(reader.result) // Convert data into buffer
-      ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
-        if (err) {
-          console.error(err)
-          return
-        }
-        let url = 'http://localhost:5001/ipfs/' + result[0].hash //pic url
-        let ERC721Metadata = JSON.stringify({
-          "doument_type": $("#tipo_documento").val(),
-          "universit_id": $("#universidade_id").val(),
-          "student_id": $("#estudante_id").val(),
-          "document": url,
-        })
-        const jsonBuffer = buffer.Buffer(ERC721Metadata)
-        ipfs.add(jsonBuffer, (err, result) => {
-          if (err) {
-            console.error(err)
-            return
-          }
-          mint('http://localhost:5001/ipfs/' + result[0].hash, result[0].hash)
-        });
-      })
-    }
-    const doc = document.getElementById("documento");
-    reader.readAsArrayBuffer(doc.files[0]); // Read Provided File
-  }
+	const reader = new FileReader();
+	reader.onloadend = function() {
+	  const ipfs = window.IpfsApi('localhost', 5001) // Connect to IPFS
+	  const buf = buffer.Buffer(reader.result) // Convert data into buffer
+	  ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
+		if(err) {
+		  console.error(err)
+		  return
+		}
+		let url = 'https://ipfs.io/ipfs/' + result[0].hash;
+		alert(`Url --> ${url}`)
+		mint('https://ipfs.io/ipfs/' + result[0].hash, result[0].hash)
+	  })
+	}
+	const doc = document.getElementById("documento");
+	reader.readAsArrayBuffer(doc.files[0]); // Read Provided File
+}
   
   function mint(ipfsUri, hash) {
     alert(ipfsUri)
