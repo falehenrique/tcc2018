@@ -38,45 +38,6 @@
             </ul>
         </div>
         <br>
-        <h3>
-            <p>Consulta de Documento</p>
-        </h3>
-        <br>
-
-        <div class="card">
-            <h5 class="card-header">Consultar</h5>
-
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="col-4">
-                        <input type="text" class="form-control" id="enderecoContratoDocumento" placeholder="Endereço Contrato">
-                    </div>
-                    <button type="button" class="btn btn-primary" id="btnConsultarDocumento">Consultar</button>
-                </div>
-
-                <div class="form-group row">
-                    <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo do Documento</label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="consulta_tipo_documento" value="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="nome_universidade" class="col-sm-2 col-form-label">Universidade</label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="consulta_universidade_id" value="">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="nome_estudante" class="col-sm-2 col-form-label">Estudante</label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="consulta_estudante_id" value="">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         <br>
         <div class="card">
             <h5 class="card-header">Cadastro de Documentos</h5>
@@ -88,7 +49,7 @@
                     <div class="col-4 form-group">
                         <input type="text" class="form-control" id="tipo_documento" placeholder="Tipo de Documento">
                     </div>
-                    <div class="col-4 form-group">
+                     <div class="col-4 form-group">
                         <input type="text" class="form-control" id="universidade_id" placeholder="Id Universidade">
                     </div>
                     <div class="col-4 form-group">
@@ -98,8 +59,8 @@
                     <div class="col-4 form-group">
                         <label for="documento">Selecione um documento</label>
                         <input type="file" class="form-control" name="documento" id="documento" placeholder="Selecione um arquivo">
+                        <!-- <input type="text" class="form-control" id="hash" placeholder="Hash"> -->
                     </div>
-
 
                     <div class="col-4 form-group">
 
@@ -126,7 +87,7 @@
     <script src="scripts/main.js"></script>
     <script src="scripts/buffer.js"></script>
     <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"></script>
-    <script src="scripts/AcademicDocument.js"></script>
+    <script src="scripts/Document.js"></script>
 </body>
 
 </html>

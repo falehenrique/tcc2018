@@ -1,22 +1,5 @@
 let abi_student = [
 	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "registrationId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "name",
-				"type": "bytes32"
-			}
-		],
-		"name": "AddNewStudent",
-		"type": "event"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -25,7 +8,7 @@ let abi_student = [
 			},
 			{
 				"name": "name",
-				"type": "bytes32"
+				"type": "string"
 			}
 		],
 		"name": "addStudent",
@@ -33,23 +16,6 @@ let abi_student = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
 	},
 	{
 		"constant": true,
@@ -63,7 +29,7 @@ let abi_student = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "string"
 			},
 			{
 				"name": "",
@@ -87,6 +53,40 @@ let abi_student = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "registrationId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "AddNewStudent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
 	}
 ]
 
@@ -108,7 +108,7 @@ $( "#btnCadastrarEstudante" ).click(function() {
         gas: 470000
 	}
 	
-    studentInstance.addStudent(matricula, web3.toHex(nome), tx, function(error, result){
+    studentInstance.addStudent(matricula, nome, tx, function(error, result){
         if (!error) {
         	console.info(result);
         } else {
@@ -124,7 +124,7 @@ $("#btnConsultarEstudante" ).click(function() {
 	let studentInstance = getInstanceStudent();
 	studentInstance.getStudent(1, function(error, result){
 		if (!error) {
-			$("#consulta_nome_estudante").val(web3.toAscii(result[0]));
+			$("#consulta_nome_estudante").val(result[0]);
 			$("#consulta_matricula_estudante").val(result[1].c[0]);
 		} else {
 			console.error(error);

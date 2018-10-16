@@ -7,15 +7,15 @@ contract University is Ownable {
     mapping(uint => UniversityData) _university;
     uint _universityId = 1;
     
-    event AddNewUniversity(bytes32 name, uint registrationId, uint _universityId);
+    event AddNewUniversity(string name, uint registrationId, uint _universityId);
 
     struct UniversityData {
-        bytes32 name;
+        string name;
         uint registrationId;
         uint universityId;
     }
     
-    function addUniversity(bytes32 name, uint registrationId) public onlyOwner {
+    function addUniversity(string name, uint registrationId) public onlyOwner {
         UniversityData memory universityData;
 
         universityData.universityId = _universityId;
@@ -28,7 +28,7 @@ contract University is Ownable {
         emit AddNewUniversity(name, registrationId, _universityId);
     }
     
-    function getUniversity(uint id) public view returns(bytes32, uint) {
+    function getUniversity(uint id) public view returns(string, uint) {
         return(_university[id].name, _university[id].registrationId);
     }
 }

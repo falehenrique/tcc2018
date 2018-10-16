@@ -1,0 +1,2 @@
+personal.listAccounts
+eth.getBalance(personal.listAccounts[0])

@@ -1,5 +1,23 @@
 let abi_university = [
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"name": "registrationId",
+				"type": "uint256"
+			}
+		],
+		"name": "addUniversity",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "owner",
@@ -25,7 +43,7 @@ let abi_university = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "string"
 			},
 			{
 				"name": "",
@@ -37,30 +55,12 @@ let abi_university = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "name",
-				"type": "bytes32"
-			},
-			{
-				"name": "registrationId",
-				"type": "uint256"
-			}
-		],
-		"name": "addUniversity",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": false,
 				"name": "name",
-				"type": "bytes32"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -113,7 +113,7 @@ $( "#btnCadastrarUniversidade" ).click(function() {
         gas: 470000
     }
 
-    universityInstance.addUniversity(web3.toHex(nome), matricula,tx , function(error, result){
+    universityInstance.addUniversity(nome, matricula,tx , function(error, result){
         if (!error) {
         	console.info(result);
         } else {
@@ -129,7 +129,7 @@ $("#btnConsultarUniversidade" ).click(function() {
 	let universityInstance = getInstanceUniversity();
 	universityInstance.getUniversity(1, function(error, result){
 		if (!error) {
-			$("#consulta_nome_universidade").val(web3.toAscii(result[0]));
+			$("#consulta_nome_universidade").val(result[0]);
 			$("#consulta_matricula_universidade").val(result[1].c[0]);
 		} else {
 			console.error(error);
