@@ -3,7 +3,7 @@ let abi_document = [
 		"constant": true,
 		"inputs": [
 			{
-				"name": "id",
+				"name": "documentId",
 				"type": "uint256"
 			}
 		],
@@ -74,15 +74,15 @@ let abi_document = [
 				"type": "string"
 			},
 			{
-				"name": "documentHash",
+				"name": "hash",
 				"type": "string"
 			},
 			{
-				"name": "universityId",
+				"name": "university",
 				"type": "uint256"
 			},
 			{
-				"name": "studentId",
+				"name": "student",
 				"type": "uint256"
 			}
 		],
@@ -157,6 +157,23 @@ let abi_document = [
 		"inputs": [
 			{
 				"indexed": false,
+				"name": "registrationId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "AddNewStudent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
 				"name": "name",
 				"type": "string"
 			},
@@ -172,23 +189,6 @@ let abi_document = [
 			}
 		],
 		"name": "AddNewUniversity",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "registrationId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "name",
-				"type": "string"
-			}
-		],
-		"name": "AddNewStudent",
 		"type": "event"
 	},
 	{
@@ -229,7 +229,7 @@ $( "#btnCadastrarDocumento" ).click(function() {
     //     gas: 470000
     // }
 
-    // documentInstance.addDocument(documentType, universityId, studentId, tx, function(error, result){
+    // documentInstance.addDocument(documentType, hash, universityId, studentId, tx, function(error, result){
     //     if (!error) {
     //     	console.info(result);
     //     } else {
@@ -254,6 +254,8 @@ function upload() {
 		mint('https://ipfs.io/ipfs/' + result[0].hash, result[0].hash)
 	  })
 	}
+
+	
 	const doc = document.getElementById("documento");
 	reader.readAsArrayBuffer(doc.files[0]); // Read Provided File
 }
