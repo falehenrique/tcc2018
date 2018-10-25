@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "./Ownable.sol";
+import "./zeppelin/ownership/Ownable.sol";
 import "./Student.sol";
 import "./University.sol";
 

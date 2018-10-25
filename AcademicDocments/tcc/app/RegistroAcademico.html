@@ -38,6 +38,54 @@
             </ul>
         </div>
         <br>
+
+        <h3>
+            <p>Consulta de Documentos</p>
+        </h3>
+        <br>
+
+        <div class="card">
+            <h5 class="card-header">Consultar</h5>
+
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="consulta_enderecoContratoDocumento" placeholder="Endereço Contrato">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnConsultarDocumento">Consultar</button>
+                </div>
+
+                <div class="form-group row">
+                    <label for="matricula" class="col-sm-2 col-form-label">Tipo de Documento</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="consulta_tipo_documento">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nome" class="col-sm-2 col-form-label">Nome da Universidade</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="consulta_nome_universidade">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nome" class="col-sm-2 col-form-label">Nome do estudante</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="consulta_nome_estudante">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nome" class="col-sm-2 col-form-label">Link do Doc</label>
+                    <div class="col-sm-10">
+                        <a href="" id="consulta_link_doc"></a>
+                        <!-- <input type="text" readonly class="form-control-plaintext" id="consulta_link_doc"> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <br>
         <div class="card">
             <h5 class="card-header">Cadastro de Documentos</h5>
@@ -59,7 +107,6 @@
                     <div class="col-4 form-group">
                         <label for="documento">Selecione um documento</label>
                         <input type="file" class="form-control" name="documento" id="documento" placeholder="Selecione um arquivo">
-                        <!-- <input type="text" class="form-control" id="hash" placeholder="Hash"> -->
                     </div>
 
                     <div class="col-4 form-group">

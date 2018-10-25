@@ -220,22 +220,6 @@ function getInstanceDocument() {
  * Add Document
  */
 $( "#btnCadastrarDocumento" ).click(function() {
-	// let documentInstance = getInstanceDocument();
-    // let documentType = $("#tipo_documento").val();
-	// let universityId = $("#universidade_id").val();
-	// let studentId = $("#estudante_id").val();
-	
-    // let tx = {
-    //     gas: 470000
-    // }
-
-    // documentInstance.addDocument(documentType, hash, universityId, studentId, tx, function(error, result){
-    //     if (!error) {
-    //     	console.info(result);
-    //     } else {
-    //         console.error(error);
-    //     }
-	// });
 	upload();
 });
 
@@ -289,3 +273,21 @@ function upload() {
         }
     });
   }
+
+  /**
+ * Get Student
+ */
+$("#btnConsultarDocumento" ).click(function() {
+	let studentInstance = getInstanceDocument();
+	studentInstance.getDocument(1, function(error, result){
+		if (!error) {
+			$("#consulta_tipo_documento").val(result[0]);
+			$('#consulta_link_doc').attr('href','http://localhost:8080/ipfs/' + result[1]);
+			$('#consulta_link_doc').html('Baixar');
+			$("#consulta_nome_universidade").val(result[2]);
+			$("#consulta_nome_estudante").val(result[3]);
+		} else {
+			console.error(error);
+		}
+	})
+});
