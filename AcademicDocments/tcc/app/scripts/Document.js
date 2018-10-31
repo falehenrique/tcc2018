@@ -2,7 +2,7 @@ let abi = [{ "constant": true, "inputs": [{ "name": "documentId", "type": "uint2
 
 
 function getInstanceDocument(contractAddress) {
-	let DocumentContract = web3.eth.contract(abi_document);
+	let DocumentContract = web3.eth.contract(abi);
 	let documentInstance = DocumentContract.at(contractAddress);
 	return documentInstance;
 }

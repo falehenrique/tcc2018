@@ -5,6 +5,7 @@
 //documentação https://github.com/ethereum/wiki/wiki/JavaScript-API
 
 //load
+global = 'global';
 window.addEventListener('load', function() {
     // var urlNode = 'http://127.0.0.1:7545';
     var urlNode = 'http://localhost:8545';
