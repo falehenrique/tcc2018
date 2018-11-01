@@ -7,5 +7,7 @@
     "browser-sync": "^2.2.1",
     "gulp": "^3.9.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "truffle": "^4.1.14"
+  }
 }
