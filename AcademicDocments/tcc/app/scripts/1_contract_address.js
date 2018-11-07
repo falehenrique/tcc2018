@@ -1,1 +1,1 @@
-var contractAddress = '0x54e4ccee8426f6fff05e4ef38125e074d364244b';
+var contractAddress = '0x4eee4559bd589b1cdfc419f0eed2ff9cbd47f439';
